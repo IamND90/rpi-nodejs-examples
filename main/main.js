@@ -4,7 +4,7 @@ var express = require('express');  //web server
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);	//web socket server
-var SerialPort = require("serialport").SerialPort;
+var SerialPort = require("serialport");
 
 server.listen(8080); //start the webserver on port 8080
 app.use(express.static('public')); //tell the server that ./public/ contains the static webpages
@@ -27,6 +27,8 @@ sp.open(portName, { // portName is instatiated to be COM3, replace as necessary
     parity: 'none', // this is the default for Arduino serial communication
     stopBits: 1, // this is the default for Arduino serial communication
     flowControl: false // this is the default for Arduino serial communication
+}).catch((error) => {
+    console.log(error);
 });
 
 //SERVER
