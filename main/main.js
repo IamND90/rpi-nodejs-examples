@@ -1,14 +1,21 @@
-var express = require('express')();
-var server = require('http').createServer(express);
-var SerialPort = require("serialport");
+var express = require('express');  //web server
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);	//web socket server
+var SerialPort = require("serialport").SerialPort;
+
+server.listen(8080); //start the webserver on port 8080
+app.use(express.static('public')); //tell the server that ./public/ contains the static webpages
 
 var sp = new SerialPort("/dev/tty-usbserial1");
 var portName = '/dev/ttyACM0';
 
-serialPort.on("open", function () {
+server.listen(80, '127.0.0.5');
+
+sp.on("open", function () {
     console.log('open');
 });
-serialPort.on('data', function(data) {
+sp.on('data', function(data) {
     console.log('data received: ' + data);
 });
 
@@ -21,10 +28,15 @@ sp.open(portName, { // portName is instatiated to be COM3, replace as necessary
 });
 
 //SERVER
-server.listen(80, '127.0.0.5');
+
 
 express.get('/', function (req, res){
     res.sendfile(__dirname + '/index.html');
 });
 
-
+io.sockets.on('connection', function (socket){
+    socket.emit('test', { test: 'Its Working' });
+    socket.on('value', function (data){
+        console.log(data);
+    });
+});
