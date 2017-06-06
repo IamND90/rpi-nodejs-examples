@@ -3,12 +3,12 @@
 let express = require('express');  //web server
 let app = express();
 let SerialPort = require("serialport");
+let path = require('path');
 
 let dataReceived = "";
 
 app.get('/', (req, res) => {
 
-    console.log('Request Params',req.params);
     console.log('Request Query',req.query);
 
     var sp = new SerialPort("/dev/ttyACM0", { baudrate: 115200 });
@@ -22,25 +22,14 @@ app.get('/', (req, res) => {
         dataReceived += "\n" + data;
         console.log('data received: ' + data);
     });
-    
-    res.send(
-        <div>
-            <p>Hello World</p>
-            <p>dataReceived</p>
-        </div>);
+
+    res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.listen(80, () => {
     console.log('Example app listening on port 80!')
 });
 
-
-
-
-
-//SERVER
-
-
-
-
-
+export function showValue(value) {
+    console.log('Value',value);
+}
