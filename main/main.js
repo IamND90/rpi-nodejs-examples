@@ -14,8 +14,7 @@ app.get('/', (req, res) => {
     var sp = new SerialPort("/dev/ttyACM0", { baudrate: 115200 });
     sp.on("open", () => {
         console.log('open');
-        var buf = new Buffer(1); //creates a new 1-byte buffer
-        buf.writeUInt8(1, 0); //writes the pwm value to the buffer
+        var buf = new Buffer('pins\n'); 
         sp.write(buf);
     });
     sp.on('data', (data) => {
