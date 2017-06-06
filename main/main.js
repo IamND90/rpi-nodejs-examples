@@ -9,16 +9,31 @@ var SerialPort = require("serialport");
 server.listen(8080); //start the webserver on port 8080
 app.use(express.static('public')); //tell the server that ./public/ contains the static webpages
 
-var sp = new SerialPort("/dev/ttyACM0");
+
 
 server.listen(80, '127.0.0.5');
 
-sp.on("open", function () {
-    console.log('open');
-});
-sp.on('data', function(data) {
-    console.log('data received: ' + data);
-});
+
+try{
+    var sp = new SerialPort("/dev/ttyACM0", { baudrate: 115200 });
+    sp.on("open", function () {
+        console.log('open');
+    });
+    sp.on('data', function(data) {
+        console.log('data received: ' + data);
+    });
+
+    io.sockets.on('connection', function (socket){
+        socket.emit('test', { test: 'Its Working' });
+        socket.on('value', function (data){
+            console.log(data);
+        });
+    });
+    
+} catch (error){
+    console.log(error);
+}
+
 
 /*
 sp.open(portName, { // portName is instatiated to be COM3, replace as necessary
@@ -35,13 +50,6 @@ sp.open(portName, { // portName is instatiated to be COM3, replace as necessary
 //SERVER
 
 
-app.get('/', function (req, res){
-    res.sendfile(__dirname + '/index.html');
-});
 
-io.sockets.on('connection', function (socket){
-    socket.emit('test', { test: 'Its Working' });
-    socket.on('value', function (data){
-        console.log(data);
-    });
-});
+
+
