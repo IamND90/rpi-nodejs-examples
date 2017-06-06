@@ -1,5 +1,5 @@
-let app = require('express');
-let server = require('http').createServer(app);
+const express = require('express');
+let server = require('http').createServer(express);
 let io = require('socket.io').listen(server);
 let SerialPort = require("serialport").SerialPort;
 
@@ -23,7 +23,7 @@ sp.open(portName, { // portName is instatiated to be COM3, replace as necessary
 //SERVER
 server.listen(80, '127.0.0.5');
 
-app.get('/', function (req, res){
+express.get('/', function (req, res){
     res.sendfile(__dirname + '/index.html');
 });
 
