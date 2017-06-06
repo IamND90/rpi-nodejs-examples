@@ -5,3 +5,5 @@
 function showValue(value) {
     console.log('Value',value);
 }
+
+export { showValue };
