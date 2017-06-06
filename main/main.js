@@ -1,7 +1,7 @@
 "use-strict";
 
 var express = require('express');  //web server
-var app = express();
+let app = express();
 var SerialPort = require("serialport");
 
 var dataReceived = "";
