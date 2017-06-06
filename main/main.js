@@ -21,6 +21,7 @@ sp.on('data', function(data) {
     console.log('data received: ' + data);
 });
 
+/*
 sp.open(portName, { // portName is instatiated to be COM3, replace as necessary
     baudRate: 115200, // this is synced to what was set for the Arduino Code
     dataBits: 8, // this is the default for Arduino serial communication
@@ -30,6 +31,7 @@ sp.open(portName, { // portName is instatiated to be COM3, replace as necessary
 }).catch((error) => {
     console.log(error);
 });
+*/
 
 //SERVER
 
