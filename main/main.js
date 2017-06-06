@@ -1,9 +1,9 @@
 const express = require('express');
-let server = require('http').createServer(express);
-let io = require('socket.io').listen(server);
-let SerialPort = require("serialport").SerialPort;
+const server = require('http').createServer(express);
+const io = require('socket.io').listen(server);
+const SerialPort = require("serialport").SerialPort;
 
-let sp = new SerialPort("/dev/tty-usbserial1");
+const sp = new SerialPort("/dev/tty-usbserial1");
 var portName = '/dev/ttyACM0';
 
 sp.on("open", function () {
