@@ -7,7 +7,8 @@ var SerialPort = require("serialport");
 var dataReceived = "";
 
 app.get('/', function (req, res) {
-    console.log('Request',req);
+    console.log('Request Params',req.params);
+    console.log('Request Query',req.query);
     res.send('Hello World!\n' + dataReceived)
 });
 
