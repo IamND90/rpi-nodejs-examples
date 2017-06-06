@@ -1,15 +1,16 @@
 var express = require('express')();
 var server = require('http').createServer(express);
 var io = require('socket.io').listen(server);
-var SerialPort = require("serialport").SerialPort;
+var SerialPort = require("serialport");
 
 var sp = new SerialPort("/dev/tty-usbserial1");
 var portName = '/dev/ttyACM0';
 
-sp.on("open", function () {
-    sp.write(0x80);
-    sp.write('123456\r');
-    console.log ("comm port ready");
+serialPort.on("open", function () {
+    console.log('open');
+});
+serialPort.on('data', function(data) {
+    console.log('data received: ' + data);
 });
 
 sp.open(portName, { // portName is instatiated to be COM3, replace as necessary
