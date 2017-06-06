@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
         dataReceived += "\n" + data;
         console.log('data received: ' + data);
     });
-    
+
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
