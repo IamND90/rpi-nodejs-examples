@@ -1,3 +1,5 @@
+"use-strict";
+
 var express = require('express');  //web server
 var app = express();
 var server = require('http').createServer(app);
