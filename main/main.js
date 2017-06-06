@@ -7,12 +7,13 @@ var SerialPort = require("serialport");
 var dataReceived = "";
 
 app.get('/', function (req, res) {
+    console.log('Request',req);
     res.send('Hello World!\n' + dataReceived)
-})
+});
 
-app.listen(3000, function () {
+app.listen(8080, function () {
     console.log('Example app listening on port 3000!')
-})
+});
 
 
 var sp = new SerialPort("/dev/ttyACM0", { baudrate: 115200 });
