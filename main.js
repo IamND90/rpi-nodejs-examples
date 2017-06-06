@@ -1,7 +1,7 @@
-let app = require('express')()
-    , server = require('http').createServer(app)
-    , io = require('socket.io').listen(server);
-let SerialPort = require("serialport").SerialPort
+let app = require('express');
+let server = require('http').createServer(app);
+let io = require('socket.io').listen(server);
+let SerialPort = require("serialport").SerialPort;
 
 let sp = new SerialPort("/dev/tty-usbserial1");
 var portName = '/dev/ttyACM0';
