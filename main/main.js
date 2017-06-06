@@ -9,8 +9,7 @@ var SerialPort = require("serialport");
 server.listen(8080); //start the webserver on port 8080
 app.use(express.static('public')); //tell the server that ./public/ contains the static webpages
 
-var sp = new SerialPort("/dev/tty-usbserial1");
-var portName = '/dev/ttyACM0';
+var sp = new SerialPort("/dev/ttyACM0");
 
 server.listen(80, '127.0.0.5');
 
