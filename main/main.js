@@ -30,6 +30,6 @@ app.listen(80, () => {
     console.log('Example app listening on port 80!')
 });
 
-export function showValue(value) {
+function showValue(value) {
     console.log('Value',value);
 }
