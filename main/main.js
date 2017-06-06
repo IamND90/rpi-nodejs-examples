@@ -32,7 +32,7 @@ sp.open(portName, { // portName is instatiated to be COM3, replace as necessary
 //SERVER
 
 
-express.get('/', function (req, res){
+app.get('/', function (req, res){
     res.sendfile(__dirname + '/index.html');
 });
 
