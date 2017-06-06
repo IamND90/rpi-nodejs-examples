@@ -1,6 +1,5 @@
 var express = require('express')();
 var server = require('http').createServer(express);
-var io = require('socket.io').listen(server);
 var SerialPort = require("serialport");
 
 var sp = new SerialPort("/dev/tty-usbserial1");
@@ -28,9 +27,4 @@ express.get('/', function (req, res){
     res.sendfile(__dirname + '/index.html');
 });
 
-io.sockets.on('connection', function (socket){
-    socket.emit('test', { test: 'Its Working' });
-    socket.on('value', function (data){
-        console.log(data);
-    });
-});
+
