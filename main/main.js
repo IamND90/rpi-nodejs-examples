@@ -5,6 +5,8 @@ let app = express();
 let SerialPort = require("serialport");
 let path = require('path');
 
+
+
 let dataReceived = "";
 
 app.get('/', (req, res) => {
@@ -23,8 +25,8 @@ app.get('/', (req, res) => {
         console.log('data received: ' + data);
     });
 
-    res.send(dataReceived);
-    //res.sendFile(path.join(__dirname + '/index.html'));
+    //res.send(dataReceived);
+    res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.listen(8080, () => {
