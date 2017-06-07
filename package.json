@@ -28,5 +28,12 @@
   "preferGlobal": "true",
   "bin": {
     "rpi-nodejs-led": "led.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "scripts": {
+    "build": "babel input.js -o compiled.js"
   }
 }

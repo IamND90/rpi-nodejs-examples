@@ -38,4 +38,4 @@ app.listen(8080, () => {
 });
 
 
-export default { sp }
+export { sp }
