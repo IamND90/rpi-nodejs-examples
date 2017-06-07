@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
     initSp();
     console.log('Get /');
-    res.render('index');
+    res.render('../public/index');
 });
 
 app.get('/test', (req, res) => {
