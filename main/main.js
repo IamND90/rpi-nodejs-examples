@@ -38,3 +38,8 @@ app.listen(8080, () => {
 });
 
 
+function showValue(value) {
+    console.log('Value', value);
+    var buf = new Buffer('A4='+value + '\n');
+    sp.write(buf);
+}
