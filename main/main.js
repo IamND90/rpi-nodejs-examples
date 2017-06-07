@@ -42,13 +42,15 @@ function sendSp(data) {
 
 app.get('/', (req, res) => {
 
-    //initSp();
+    initSp();
     console.log('Get /', req.query);
     let keys = Object.keys(req.query);
+    console.log('Keys: /', keys);
     if ( keys.length >0){
         let toSend = '';
-        for ( let key in keys) {
+        for ( let key of keys) {
             if( toSend !== '') toSend += ' ';
+            console.log('Key: /', key);
             toSend += key;
             if( req.query[key] && req.query[key] !== ''){
                 toSend += '=' +  req.query[key];
