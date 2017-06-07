@@ -33,7 +33,6 @@ function sendSp(data) {
     if( sp === null ){
         initSp();
     }
-    console.log('Send:', data);
     sp.write(new Buffer(data + "\n"), function(err, results) {
         console.log('err ' + err);
         console.log('results ' + results);
@@ -45,12 +44,10 @@ app.get('/', (req, res) => {
     initSp();
     console.log('Get /', req.query);
     let keys = Object.keys(req.query);
-    console.log('Keys: /', keys);
     if ( keys.length >0){
         let toSend = '';
         for ( let key of keys) {
             if( toSend !== '') toSend += ' ';
-            console.log('Key: /', key);
             toSend += key;
             if( req.query[key] && req.query[key] !== ''){
                 toSend += '=' +  req.query[key];
