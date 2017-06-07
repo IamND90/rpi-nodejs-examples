@@ -4,20 +4,9 @@
   "description": "Blinking LED implementation with Node.js for Raspberry Pi using wiringpi.",
   "main": "led.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/IamND90/rpi-nodejs-examples.git"
-  },
-  "keywords": [
-    "iot",
-    "Raspberry Pi"
-  ],
-  "dependencies": {
-    "wiring-pi": ">=2.1.1",
-    "express": "^4.15.2",
-    "socket.io": "^2.0.2"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel ./main/main.js -o compiled.js",
+    "start": "node compiled.js"
   },
   "author": "Leon Anavi <leon@anavi.org>",
   "license": "GPL-3.0",
@@ -29,11 +18,21 @@
   "bin": {
     "rpi-nodejs-led": "led.js"
   },
-  "devDependencies": {
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IamND90/rpi-nodejs-examples.git"
+  },
+  "keywords": [
+    "iot",
+    "Raspberry Pi"
+  ],
+
+  "dependencies": {
+    "wiring-pi": ">=2.1.1",
+    "express": "^4.15.2",
+    "socket.io": "^2.0.2",
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1"
-  },
-  "scripts": {
-    "build": "babel ./main/main.js -o compiled.js"
   }
+
 }

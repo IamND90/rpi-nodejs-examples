@@ -2,18 +2,18 @@
 <html>
 <head>
     <title>LED Controller</title>
-
     <meta name="viewport" content="width=400px" />
     <link rel="stylesheet" href="style.css">
+    <script type='text/javascript' src="../main/functions.js" ></script>
 </head>
 <body>
 
-<input type="range" id= "inputSlider" min="0" max="255" value="50" step="1" oninput="showValue(this.value)" />
+<input type="range" id= "inputSlider" min="0" max="1023" value="512" step="1" oninput="showValue(this.value)" />
 
 <br><br><span id="outputText">50</span>
 
-<input type="button" id="buttonConfirm" onclick="showValue()">Button</input>
+<input type="button" id="buttonConfirm" onclick="confirmValue()">Button</input>
+<a id="send" href="#">Send</a>
 
-<script src="../main/functions.js" ></script>
 </body>
 </html>

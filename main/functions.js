@@ -1,10 +1,19 @@
 /**
  * Created by andreyparamonov on 07.06.17.
  */
-import sp from './main.js';
+//import sp from './main.js';
+
+let sp = null;
 
 function showValue(value) {
-    console.log('Value', value);
-    var buf = new Buffer('A4='+value + '\n');
-    sp.write(buf);
+
+    let buf = 'A4='+value + '\n';
+    console.log('Value', buf);
+    let a = document.getElementById('send'); //or grab it by tagname etc
+    a.href = '#'+buf;
 }
+
+function confirmValue() {
+
+}
+
