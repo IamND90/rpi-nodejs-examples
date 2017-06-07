@@ -41,6 +41,24 @@ router.get('/', function (req, res) {
 });
 
 
+app.get('/', (req, res) => {
+
+    console.log('Request Query',req.query);
+
+
+    if( req.query && sp!== null ){
+        console.log('Send:', req.query);
+        let keys = Object.keys(req.query);
+        let key = keys[0];
+        if( req.query[key] ) key =+ '=' + req.query[key];
+        let buf = new Buffer(key+ '\n');
+        sp.write(buf);
+    }
+
+    res.render('index');
+});
+
+
 app.listen(8080, () => {
     console.log('Example app listening on port 8080!')
 });
