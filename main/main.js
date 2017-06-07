@@ -2,12 +2,12 @@
 
 let express = require('express');  //web server
 let app = express();
-
 let SerialPort = require("serialport");
 let path = require('path');
 
-let dataReceived = "";
 let sp = null;
+
+let dataReceived = [];
 
 function initSp() {
     if( sp === null ){
@@ -15,38 +15,31 @@ function initSp() {
         console.log('Serial Port start!');
         sp.on("open", () => {
             console.log('open');
-            var buf = new Buffer(req.query + '\n');
-            sp.write(buf);
+            sp.write('pins');
         });
         sp.on('data', (data) => {
-            dataReceived += "\n" + data;
+            dataReceived.push(data);
             console.log('data received: ' + data);
         });
     }
 }
 
-
-
 app.get('/', (req, res) => {
 
-    console.log('Request Query',req.query);
     initSp();
-
-    if( req.query && sp!== null ){
-        console.log('Send:', req.query);
-        let keys = Object.keys(req.query);
-        let key = keys[0];
-        if( req.query[key] ) key =+ '=' + req.query[key];
-        let buf = new Buffer(key+ '\n');
-        sp.write(buf);
-    }
-
+    console.log('Get /');
     res.render('index');
 });
 
+app.get('/test', (req, res) => {
+
+    initSp();
+    console.log('Get /test');
+    res.send('Hello');
+});
 
 app.listen(8080, () => {
-    console.log('Example app listening on port 8080!')
+    console.log('Example app listening on port 8080!');
 });
 
 
