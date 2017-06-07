@@ -7,15 +7,15 @@
 </head>
 <body>
 
-<input type="range" id= "inputSlider" min="0" max="255" value="50" step="1" oninput="showValue(this.value)" />
+<input type="range" id= "inputSlider" min="0" max="255" value="50" step="1"  />
 
 <br><br><span id="outputText">50</span>
 
-<input type="button" id="buttonConfirm" onclick="showValue('Click')">Button</input>
+<input type="button" id="buttonConfirm" onclick="showValue()">Button</input>
 
 <script>
-    function showValue(value) {
-        console.log('Value',value);
+    function showValue() {
+        console.log('Value');
     }
 </script>
 </body>
