@@ -11,10 +11,11 @@ app.get('/', (req, res) => {
 
     console.log('Request Query',req.query);
 
+
     var sp = new SerialPort("/dev/ttyACM0", { baudrate: 115200 });
     sp.on("open", () => {
         console.log('open');
-        var buf = new Buffer('pins\n'); 
+        var buf = new Buffer(req.query + '\n');
         sp.write(buf);
     });
     sp.on('data', (data) => {
@@ -22,7 +23,8 @@ app.get('/', (req, res) => {
         console.log('data received: ' + data);
     });
 
-    res.sendFile(path.join(__dirname + '/index.html'));
+    res.send(dataReceived);
+    //res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.listen(8080, () => {
