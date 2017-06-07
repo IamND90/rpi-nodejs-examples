@@ -2,18 +2,30 @@
 
 let express = require('express');  //web server
 let app = express();
+let router = express.Router();
+
 let SerialPort = require("serialport");
 let path = require('path');
+
 
 
 
 let dataReceived = "";
 let sp = null;
 
-
+app.use(router);
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
+router.all('/', function (req, res, next) {
+    console.log('Someone made a request!');
+    next();
+});
+
+router.get('/', function (req, res) {
+    res.render('index');
+});
+
+app.get('/serial', (req, res) => {
 
     console.log('Request Query',req.query);
 
@@ -38,7 +50,7 @@ app.get('/', (req, res) => {
         sp.write(buf);
     }
 
-    res.send(dataReceived);
+    res.render('index');
 });
 
 app.listen(8080, () => {
