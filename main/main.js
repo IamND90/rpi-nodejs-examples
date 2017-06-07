@@ -13,6 +13,7 @@ let sp = null;
 function initSp() {
     if( sp === null ){
         sp = new SerialPort("/dev/ttyACM0", { baudrate: 115200 });
+        console.log('Serial Port start!');
         sp.on("open", () => {
             console.log('open');
             var buf = new Buffer(req.query + '\n');
@@ -26,7 +27,7 @@ function initSp() {
 }
 
 app.use(router);
-app.use(express.static('public'));
+//app.use(express.static('public'));
 
 router.all('/', function (req, res, next) {
     console.log('Request!', req);
