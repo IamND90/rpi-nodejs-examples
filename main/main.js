@@ -34,7 +34,10 @@ function sendSp(data) {
         initSp();
     }
     console.log('Send:', data);
-    sp.send(data + "\n");
+    sp.write(new Buffer(data + "\n"), function(err, results) {
+        console.log('err ' + err);
+        console.log('results ' + results);
+    });
 }
 
 app.get('/', (req, res) => {
