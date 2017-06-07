@@ -20,7 +20,7 @@ function initSp() {
         console.log('Serial Port start!');
         sp.on("open", () => {
             console.log('open');
-            sp.write('pins');
+            sp.write('pins\n');
         });
         sp.on('data', (data) => {
             dataReceived.push(data);

@@ -8,12 +8,16 @@
 </head>
 <body>
 
-<input type="range" id= "inputSlider" min="0" max="1023" value="512" step="1" oninput="showValue(this.value)" />
 
-<br/>
-<span id="outputText">50</span>
-<br/>
-<a id="send" href="#">Send</a>
+<form action="http://127.0.0.1:8080/myaction" method="post">
+    <input type="range" id= "inputSlider" min="0" max="1023" value="512" step="1" oninput="showValue(this.value)" />
+
+    <br/>
+    <span id="outputText">50</span>
+    <br/>
+    <a id="send" href="#">Send</a>
+
+</form>
 
 </body>
 </html>

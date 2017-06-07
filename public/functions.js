@@ -4,6 +4,6 @@ function showValue(value) {
     console.log('Value', buf);
     let a = document.getElementById('send'); //or grab it by tagname etc
     a.href = '?'+buf;
+    a.innerHTML = buf;
+    a.onclick();
 }
-
-
