@@ -2,7 +2,6 @@
 
 let express = require('express');  //web server
 let app = express();
-let router = express.Router();
 
 let SerialPort = require("serialport");
 let path = require('path');
@@ -26,26 +25,12 @@ function initSp() {
     }
 }
 
-app.use(router);
-//app.use(express.static('public'));
-
-router.all('/', function (req, res, next) {
-    console.log('Request!', req);
-    initSp();
-    next();
-});
-
-router.get('/', function (req, res) {
-    console.log('Index!', req);
-    initSp();
-    res.render('index');
-});
 
 
 app.get('/', (req, res) => {
 
     console.log('Request Query',req.query);
-
+    initSp();
 
     if( req.query && sp!== null ){
         console.log('Send:', req.query);
