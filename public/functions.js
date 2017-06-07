@@ -13,7 +13,7 @@ function showValue(value) {
     if( sp == null ) initSp();
     if( sp!== null ){
         console.log('Send:', buf);
-        sp.write(buf);
+        //sp.write(buf);
     }
 }
 

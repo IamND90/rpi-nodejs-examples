@@ -1,9 +1,14 @@
 "use-strict";
 
 let express = require('express');  //web server
-let app = express();
 let SerialPort = require("serialport");
 let path = require('path');
+
+let app = express();
+app.set('views', __dirname + '/public');
+app.engine('html', require('ejs').renderFile);
+
+
 
 let sp = null;
 
@@ -24,16 +29,40 @@ function initSp() {
     }
 }
 
+function sendSp(data) {
+    if( sp === null ){
+        initSp();
+    }
+    console.log('Send:', data);
+    sp.send(data + "\n");
+}
+
 app.get('/', (req, res) => {
 
-    initSp();
-    console.log('Get /');
+    //initSp();
+    console.log('Get /', req.query);
+    let keys = Object.keys(req.query);
+    if ( keys.length >0){
+        let toSend = '';
+        for ( let key in keys) {
+            if( toSend !== '') toSend += ' ';
+            toSend += key;
+            if( req.query[key] && req.query[key] !== ''){
+                toSend += '=' +  req.query[key];
+            }
+        }
+        sendSp(toSend);
+    }
+
+
     res.render('index.html');
 });
 
+app.use(express.static('public'));
+
 app.get('/test', (req, res) => {
 
-    initSp();
+    //initSp();
     console.log('Get /test');
     res.send('Hello');
 });
