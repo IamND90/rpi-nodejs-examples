@@ -34,6 +34,6 @@
     "babel-preset-es2015": "^6.24.1"
   },
   "scripts": {
-    "build": "babel main.js -o compiled.js"
+    "build": "babel ./main/main.js -o compiled.js"
   }
 }
