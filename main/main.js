@@ -1,4 +1,4 @@
-"use-strict";
+'use-strict';
 
 let express = require('express');  //web server
 let SerialPort = require("serialport");
@@ -19,9 +19,6 @@ function initSp() {
         sp = new SerialPort("/dev/ttyACM0", { baudrate: 115200 });
         console.log('Serial Port start!');
 
-        document.getElementById('send').addEventListener('click', () => {
-            console.log('Send click');
-        });
         sp.on("open", () => {
             console.log('open');
             sp.write('pins\n');
@@ -46,6 +43,12 @@ function sendSp(data) {
 }
 
 app.get('/', (req, res) => {
+
+    document.getElementById('send').addEventListener('click', () => {
+        console.log('Send click');
+        let text = document.getElementById('input').textContent;
+        sendSp(text);
+    });
 
     initSp();
     console.log('Get /', req.query);
