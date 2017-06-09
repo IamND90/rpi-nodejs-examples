@@ -17,7 +17,7 @@ function showValue(value) {
 
 function getPins() {
     setTimeout( () => {
-        window.fetch(document.baseURI + '/send/?pins')
+        window.fetch(document.baseURI + 'send/?pins')
             .then((res) => {
                 return res.json();
             }).then((data) => {
@@ -48,32 +48,71 @@ function poll(){
     },0);
 }
 
-function updateDom(json) {
-    let keys = Object.keys(json);
-    let container = document.getElementsByClassName('container');
+function setElement(div,keys,json){
+
 
     for( let key of keys){
-        conf[key] = json[key];
-
+        let value = json[key];
         let p = document.getElementById(key);
-        if( p && p!==null) {
-            p.innerHTML = conf[key];
+        let inner ;
+
+        if( !p || p===null) {
+            p = document.createElement('div');
+            div.appendChild(p);
+        }
+        p.innerHTML = key;
+
+        if ( value.type === 'string' || value.type === 'integer' ){
+            inner = document.createElement('p');
+            inner.innerHTML = value;
         }
         else {
 
-            let div = document.createElement('div');
-            let p = document.createElement('p');
-            p.innerHTML = key;
-            div.appendChild(p);
-            let n = document.createElement('p');
-            n.innerHTML = conf[key];
-            div.appendChild(n);
-
-            document.body.appendChild(div);
+            let n = document.createElement('div');
+            setElement()
         }
 
     }
 
+
+    p.innerHTML = key;
+    div.appendChild(p);
+}
+
+function setPins(pins){
+
+    let keys = Object.keys(pins);
+    for( let key of keys){
+        let value = json[key];
+        let div = document.getElementById(key);
+        let inner ;
+
+        if( !div || div===null) {
+            div = document.createElement('div');
+            document.getElementsByClassName('pins').appendChild(div);
+        }
+
+        let p = document.createElement('p');
+        p.innerHTML = key;
+        let t = document.createElement('p');
+        t.innerHTML = value;
+        inner = p+t;
+        div.innerHTML = inner;
+
+    }
+}
+function updateDom(json) {
+    let keys = Object.keys(json);
+
+    for( let key of keys){
+        if(key === 'pins'){
+            setPins(json[key]);
+        }
+        else {
+            let el = document.getElementById(key);
+            if( el) el.innerHTML = json[key];
+        }
+    }
 
 }
 
