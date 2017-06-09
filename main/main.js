@@ -52,7 +52,7 @@ function sendSp(data, callback) {
 }
 
 app.get('/', (req, res) => {
-    //initSp();
+    initSp();
     console.log('Get /', req.query);
     let keys = Object.keys(req.query);
     if ( keys.length >0){

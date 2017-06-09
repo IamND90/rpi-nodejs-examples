@@ -19,9 +19,9 @@ function showValue(value) {
 }
 
 function poll(){
-    console.log('Subscribed to events');
+    console.log('Subscribed to events',document.baseURI);
     setTimeout( () => {
-        window.fetch('http://localhost:8080/subscribe')
+        window.fetch(document.baseURI + 'subscribe')
             .then((res) => {
                 return res.json();
             }).then((data) => {
