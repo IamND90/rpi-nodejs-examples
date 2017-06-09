@@ -38,7 +38,7 @@ function poll(){
 
 function updateDom(json) {
     let keys = Object.keys(json);
-    for( let key in keys){
+    for( let key of keys){
         conf[key] = json[key];
 
         let p = document.getElementById(key);

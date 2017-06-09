@@ -14,8 +14,6 @@ app.use(bodyParser.json());
 
 let sp = null;
 let cachedJson = '';
-
-
 let dataReceived = [];
 
 function initSp() {
@@ -58,11 +56,10 @@ function initSp() {
     }
 }
 
-function sendSp(data, callback) {
+function sendSp(data) {
     if( sp === null ){
         initSp();
     }
-    sp.on('data',callback);
     sp.write(new Buffer(data + "\n"), function(err, results) {
         console.log('err ' + err);
         console.log('results ' + results);
@@ -83,10 +80,8 @@ app.get('/', (req, res) => {
                     toSend += '=' +  req.query[key];
                 }
             }
-            sendSp(toSend, (data) => {
-                console.log('Data: ' + data);
-                res.send(data);
-            });
+            sendSp(toSend);
+            res.end('Ok');
         } else {
             res.render('index', {
                 posts: dataReceived,
