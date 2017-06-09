@@ -18,12 +18,18 @@ function initSp() {
     if( sp === null ){
         sp = new SerialPort("/dev/ttyACM0", { baudrate: 115200 });
         console.log('Serial Port start!');
+
+        document.getElementById('send').addEventListener('click', () => {
+            console.log('Send click');
+        });
         sp.on("open", () => {
             console.log('open');
             sp.write('pins\n');
         });
         sp.on('data', (data) => {
             dataReceived.push(data);
+            var node = document.createTextNode(data);         // Create a text node
+            document.getElementById('input').appendChild(node);
             console.log('data received: ' + data);
         });
     }
