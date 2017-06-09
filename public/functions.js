@@ -88,14 +88,13 @@ function setPins(pins){
         let value = pins[key];
         let div = document.createElement('div');
 
-
-        let inner ;
         let p = document.createElement('p');
         p.innerHTML = key;
         let t = document.createElement('p');
         t.innerHTML = value;
-        inner = p+t;
-        div.innerHTML = inner;
+
+        div.appendChild(p);
+        div.appendChild(t);
         container.appendChild(div);
 
     }
