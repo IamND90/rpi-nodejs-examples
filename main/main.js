@@ -13,6 +13,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 let sp = null;
+let cachedJson = '';
+
 
 let dataReceived = [];
 
@@ -27,9 +29,31 @@ function initSp() {
         });
 
         sp.on('data', (data) => {
-            dataReceived.push(data);
-            dispatcher.emit('message', data);
-            console.log('Data received: ' + data);
+            const s = data.toString();
+            console.log('Data received: ', s);
+            try {   // Parse raw
+                let json =  JSON.parse(s);
+                console.log('Json:',s);
+
+                updateDom(s);
+                cachedJson = '';
+                dataReceived.push(s);
+                dispatcher.emit('message', s);
+            }catch (e) {
+                console.log('JsonNotParsed1:',s);
+                cachedJson += s;
+                try {
+                    let json =  JSON.parse(cachedJson);
+                    console.log('Json:',json);
+
+                    cachedJson = '';
+                    dataReceived.push(s);
+                    dispatcher.emit('message', s);
+                }catch (e) {
+                    console.log('JsonNotParsed2:',data);
+                }
+            }
+
         });
     }
 }
