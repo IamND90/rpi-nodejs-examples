@@ -30,6 +30,7 @@ function initSp() {
 
         sp.on('data', (data) => {
             const s = data.toString();
+
             console.log('Data received: ', s);
             try {   // Parse raw
                 let json =  JSON.parse(s);
@@ -49,7 +50,7 @@ function initSp() {
                     dispatcher.emit('message', cachedJson);
                     cachedJson = '';
                 }catch (e) {
-                    console.log('JsonNotParsed2:',data);
+                    console.log('JsonNotParsed2:',s);
                 }
             }
 

@@ -1,7 +1,4 @@
 
-let currentValue = 500;
-
-let cachedJson = '';
 
 let conf = {
     name: 'Unknown',
@@ -27,9 +24,9 @@ function poll(){
             .then((res) => {
                 return res.json();
             }).then((data) => {
-
-            console.log('DataJ:',data);
+            
             let json =  JSON.parse(data);
+            console.log('Json:',json);
             updateDom(json);
 
             poll();
@@ -53,7 +50,7 @@ function updateDom(json) {
 
 
     let elemDiv = document.createElement('p');
-    elemDiv.innerHTML = data.toString();
+    elemDiv.innerHTML = json
     document.body.appendChild(elemDiv);
 
 }
