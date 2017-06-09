@@ -25,18 +25,17 @@ function poll(){
             .then((res) => {
                 return res.json();
             }).then((data) => {
-                //let jsonData = JSON.parse(data);
 
-                let json = JSON.parse(data.toString());
-                console.log('Data',json);
-            /*
-                if( json) {
-                    let keys = Object.keys(json);
-                    for( let key in keys){
-                        conf[key] = data[key];
-                    }
+                let s = data;
+                console.log('DataJ:',s);
+                let json = JSON.parse(s);
+                console.log('Json:',json);
+
+                let keys = Object.keys(json);
+                for( let key in keys){
+                    conf[key] = data[key];
                 }
-                */
+
 
                 let elemDiv = document.createElement('p');
                 elemDiv.innerHTML = data.toString();
