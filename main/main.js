@@ -45,10 +45,10 @@ function initSp() {
 
                     dataReceived.push(cachedJson);
                     dispatcher.emit('message', cachedJson);
-                    cachedJson = '';
                 }catch (e) {
                     //console.log('JsonNotParsed2:',s);
                 }
+                cachedJson = '';
             }
 
         });

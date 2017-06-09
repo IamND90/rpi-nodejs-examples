@@ -83,7 +83,7 @@ function setPins(pins){
 
     let keys = Object.keys(pins);
     for( let key of keys){
-        let value = json[key];
+        let value = pins[key];
         let div = document.getElementById(key);
         let inner ;
 
