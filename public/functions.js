@@ -82,22 +82,21 @@ function setElement(div,keys,json){
 function setPins(pins){
 
     let keys = Object.keys(pins);
+    const container =  document.getElementById('pins');
+    container.innerHTML = '';
     for( let key of keys){
         let value = pins[key];
-        let div = document.getElementById(key);
+        let div = document.createElement('div');
+
+
         let inner ;
-
-        if( !div || div===null) {
-            div = document.createElement('div');
-            document.getElementsByClassName('pins').appendChild(div);
-        }
-
         let p = document.createElement('p');
         p.innerHTML = key;
         let t = document.createElement('p');
         t.innerHTML = value;
         inner = p+t;
         div.innerHTML = inner;
+        container.appendChild(div);
 
     }
 }
