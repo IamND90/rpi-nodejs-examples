@@ -30,20 +30,30 @@ function poll(){
 
                 console.log('DataJ:',data);
             try {
-                let json =  JSON.parse(cachedJson +data);
+                let json =  JSON.parse(data);
                 console.log('Json:',json);
 
                 updateDom(json);
                 cachedJson = '';
             }catch (e) {
-                console.log('JsonNotParsed:',data);
+                console.log('JsonNotParsed1:',data);
                 cachedJson += data;
+                try {
+                    let json =  JSON.parse(cachedJson);
+                    console.log('Json:',json);
+
+                    updateDom(json);
+                    cachedJson = '';
+                }catch (e) {
+                    console.log('JsonNotParsed2:',data);
+                    cachedJson = '';
+                }
             }
             poll();
 
         });
 
-    },200);
+    },0);
 }
 
 function updateDom(json) {

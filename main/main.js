@@ -81,8 +81,9 @@ app.get('/', (req, res) => {
 app.get('/subscribe', (req, res) => {
     res.set('Content-Type', 'application/json');
     dispatcher.once('message', message => {
-        console.log('Emit:',message);
-        res.json(message.toString());
+        const msg = message.toString();
+        console.log('Emit:',msg);
+        res.json(msg);
     });
     initSp();
 });
