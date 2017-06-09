@@ -21,15 +21,22 @@ function showValue(value) {
 function poll(){
     console.log('Subscribed to events');
     setTimeout( () => {
-        window.fetch('http://localhost:8080/subscribe').then((res) => {
-            console.log('Event!',res);
+        window.fetch('http://localhost:8080/subscribe')
+            .then((res) => {
+                return res.json();
+            }).then((data) => {
+                console.log('Data',data);
 
-            if( res) {
-                let keys = Object.keys(res);
+            if( data) {
+                let keys = Object.keys(data);
                 for( let key in keys){
-                    conf.key = res[key];
+                    conf[key] = data[key];
                 }
             }
+
+            let elemDiv = document.createElement('p');
+            elemDiv.innerHTML = data.toString();
+            document.body.appendChild(elemDiv);
 
             poll();
         });

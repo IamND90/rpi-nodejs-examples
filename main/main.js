@@ -3,12 +3,14 @@
 const express = require('express');  //web server
 const events = require('events');
 const SerialPort = require("serialport");
+const bodyParser = require('body-parser')
 
 const dispatcher = new events.EventEmitter();
 const app = express();
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 let sp = null;
 
@@ -50,7 +52,7 @@ function sendSp(data, callback) {
 }
 
 app.get('/', (req, res) => {
-    initSp();
+    //initSp();
     console.log('Get /', req.query);
     let keys = Object.keys(req.query);
     if ( keys.length >0){
@@ -77,9 +79,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/subscribe', (req, res) => {
-    res.set('Content-Type', 'application/json;charset=utf-8');
-    res.set('Cache-Control', 'no-cache, must-revalidate');
-    dispatcher.once('message', message => res.end(message));
+    dispatcher.once('message', message => {
+        res.set('Content-Type', 'application/json');
+        res.json(message);
+    });
 });
 
 app.listen(8080, () => {
