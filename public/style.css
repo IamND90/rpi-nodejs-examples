@@ -4,9 +4,16 @@ body {
     background: #50D0A0;
 }
 
+button {
+    border: 1px solid #50D0A0;
+    padding: 4px;
+    margin: 4px;
+}
+
 input[type=range]{
     -webkit-appearance: none;
     width: 80%;
+    margin: 4px;
 }
 
 input[type=range]::-webkit-slider-runnable-track {

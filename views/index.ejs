@@ -11,26 +11,18 @@
         <div id="name">Unknown</div>
 
         <div class="button">
-            <input type="button" onclick="getPins()">Get Pins</input>
+            <button type="button" onclick="getPins()">Pins</button>
         </div>
-        <form action="http://127.0.0.1:8080/A4" method="post">
+        <div class="button">
             <input type="range" id= "inputSlider" min="0" max="1023" value="512" step="1" oninput="showValue(this.value)" />
-
-            <br/>
-            <span id="outputText">50</span>
-            <br/>
-
-            <a id="send" href="#">Send</a>
-        </form>
+        </div>
 
 
         <br/>
-        <div class="list-group">
-            <!-- loop over blog posts and render them -->
-            <% posts.forEach((post) => { %>
-                <p ><%= post %></p>
-            <% }) %>
-        </div>
+            <span id="outputText">50</span>
+        <br/>
+        
+        <br/>
     </div>
 
 </body>

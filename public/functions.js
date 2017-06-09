@@ -11,9 +11,7 @@ let conf = {
 
 function showValue(value) {
     let buf = 'A4='+value + '\n';
-    console.log('Value', buf);
-    let a = document.getElementById('send'); //or grab it by tagname etc
-    a.href = '?'+buf;
+    let a = document.getElementById('outputText'); //or grab it by tagname etc
     a.innerHTML = buf;
 }
 
@@ -69,6 +67,7 @@ function updateDom(json) {
             div.appendChild(p);
             let n = document.createElement('p');
             n.innerHTML = conf[key];
+            div.appendChild(n);
 
             document.body.appendChild(div);
         }

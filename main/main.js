@@ -38,7 +38,6 @@ function initSp() {
                 dataReceived.push(s);
                 dispatcher.emit('message', s);
             }catch (e) {
-                //console.log('JsonNotParsed1:',s);
                 cachedJson += s;
                 try {
                     let json =  JSON.parse(cachedJson);
