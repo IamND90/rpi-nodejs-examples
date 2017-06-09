@@ -1,6 +1,8 @@
 
 let currentValue = 500;
 
+let cachedJson = '';
+
 let conf = {
     name: 'Unknown',
     pins: {
@@ -25,15 +27,18 @@ function poll(){
             .then((res) => {
                 return res.json();
             }).then((data) => {
-
                 let s = data;
                 console.log('DataJ:',s);
-                let json = JSON.parse(s);
+            try {
+                let json =  JSON.parse(cachedJson +s);
                 console.log('Json:',json);
 
                 updateDom(json);
+            }catch (e) {
+                cachedJson += s;
+            }
+            poll();
 
-                poll();
         });
 
     },200);
