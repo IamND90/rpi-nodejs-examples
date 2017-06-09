@@ -1,6 +1,15 @@
 
 let currentValue = 500;
 
+let conf = {
+    name: 'Unknown',
+    pins: {
+        A0: 0,
+        A1: 1,
+    }
+
+};
+
 function showValue(value) {
     let buf = 'A4='+value + '\n';
     console.log('Value', buf);
@@ -9,16 +18,23 @@ function showValue(value) {
     a.innerHTML = buf;
 }
 
-function getCurrentA0(){
-    return currentValue;
+function poll(){
+    console.log('Subscribed to events');
+    setTimeout( () => {
+        window.fetch('http://localhost:8080/subscribe').then((res) => {
+            console.log('Event!',res);
+
+            if( res) {
+                let keys = Object.keys(res);
+                for( let key in keys){
+                    conf.key = res[key];
+                }
+            }
+
+            poll();
+        });
+
+    },200);
 }
 
-() => {
-    document.getElementById('send').addEventListener('click', () => {
-        console.log('Send click');
-        let text = document.getElementById('input').textContent;
-        sendSp(text);
-    });
-
-
-}
+poll();

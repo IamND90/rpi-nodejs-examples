@@ -1,9 +1,11 @@
 'use-strict';
 
-let express = require('express');  //web server
-let SerialPort = require("serialport");
+const express = require('express');  //web server
+const events = require('events');
+const SerialPort = require("serialport");
 
-let app = express();
+const dispatcher = new events.EventEmitter();
+const app = express();
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
@@ -14,26 +16,33 @@ let dataReceived = [];
 
 function initSp() {
     if( sp === null ){
-        sp = new SerialPort("/dev/ttyACM0", { baudrate: 115200 });
-        console.log('Serial Port start!');
+        try{
+            sp = new SerialPort("/dev/ttyACM0", { baudrate: 115200 });
+            console.log('Serial Port start!');
 
-        sp.on("open", () => {
-            console.log('open');
-            sp.write('pins\n');
-        });
-        sp.on('data', (data) => {
-            dataReceived.push(data);
-            //var node = document.createTextNode(data);         // Create a text node
-            //window.document.getElementById('input').appendChild(node);
-            console.log('data received: ' + data);
-        });
+            sp.on("open", () => {
+                console.log('open');
+                sp.write('pins\n');
+            });
+
+            sp.on('data', (data) => {
+                dataReceived.push(data);
+                dispatcher.emit('message', data);
+                console.log('Data received: ' + data);
+            });
+
+        } catch (er) {
+            console.log(er);
+        }
+
     }
 }
 
-function sendSp(data) {
+function sendSp(data, callback) {
     if( sp === null ){
         initSp();
     }
+    sp.on('data',callback);
     sp.write(new Buffer(data + "\n"), function(err, results) {
         console.log('err ' + err);
         console.log('results ' + results);
@@ -53,15 +62,25 @@ app.get('/', (req, res) => {
                 toSend += '=' +  req.query[key];
             }
         }
-        sendSp(toSend);
+        sendSp(toSend, (data) => {
+            console.log('Data: ' + data);
+            res.send(data);
+        });
+    } else {
+        res.render('index', {
+            posts: dataReceived,
+        });
     }
 
 
-    res.render('index', {
-        posts: dataReceived,
-    });
+
 });
 
+app.get('/subscribe', (req, res) => {
+    res.set('Content-Type', 'application/json;charset=utf-8');
+    res.set('Cache-Control', 'no-cache, must-revalidate');
+    dispatcher.once('message', message => res.end(message));
+});
 
 app.listen(8080, () => {
     console.log('Example app listening on port 8080!');
