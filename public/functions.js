@@ -24,12 +24,12 @@ function poll(){
             .then((res) => {
                 return res.json();
             }).then((data) => {
-            
-            let json =  JSON.parse(data);
-            console.log('Json:',json);
-            updateDom(json);
 
-            poll();
+                let json =  JSON.parse(data);
+                console.log('Json:',json);
+                updateDom(json);
+
+                poll();
 
         });
 
@@ -39,7 +39,7 @@ function poll(){
 function updateDom(json) {
     let keys = Object.keys(json);
     for( let key in keys){
-        conf[key] = data[key];
+        conf[key] = json[key];
 
         let p = document.getElementById(key);
         if( p && p!==null) {
@@ -50,7 +50,7 @@ function updateDom(json) {
 
 
     let elemDiv = document.createElement('p');
-    elemDiv.innerHTML = json
+    elemDiv.innerHTML = json;
     document.body.appendChild(elemDiv);
 
 }
