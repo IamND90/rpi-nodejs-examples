@@ -37,7 +37,7 @@ function initSp() {
                 cachedJson = '';
                 dataReceived.push(s);
                 dispatcher.emit('message', s);
-            }catch (e) {
+            }catch (e1) {
                 cachedJson += s;
                 try {
                     let json =  JSON.parse(cachedJson);
@@ -45,10 +45,12 @@ function initSp() {
 
                     dataReceived.push(cachedJson);
                     dispatcher.emit('message', cachedJson);
-                }catch (e) {
+                    cachedJson = '';
+                }catch (e2) {
+                    if( cachedJson.startsWith('{'))cachedJson = s;
                     //console.log('JsonNotParsed2:',s);
                 }
-                cachedJson = '';
+
             }
 
         });

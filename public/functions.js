@@ -36,9 +36,9 @@ function poll(){
             .then((res) => {
                 return res.json();
             }).then((data) => {
-
+                console.log('Json:',data);
                 let json =  JSON.parse(data);
-                console.log('Json:',json);
+
                 updateDom(json);
 
                 poll();
