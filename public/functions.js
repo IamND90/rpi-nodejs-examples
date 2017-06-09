@@ -37,7 +37,7 @@ function poll(){
                 cachedJson = '';
             }catch (e) {
                 console.log('JsonNotParsed:',data);
-                cachedJson += s;
+                cachedJson += data;
             }
             poll();
 
