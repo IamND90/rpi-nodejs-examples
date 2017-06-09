@@ -18,25 +18,19 @@ let dataReceived = [];
 
 function initSp() {
     if( sp === null ){
-        try{
-            sp = new SerialPort("/dev/ttyACM0", { baudrate: 115200 });
-            console.log('Serial Port start!');
+        sp = new SerialPort("/dev/ttyACM0", { baudrate: 115200 });
+        console.log('Serial Port start!');
 
-            sp.on("open", () => {
-                console.log('open');
-                sp.write('pins\n');
-            });
+        sp.on("open", () => {
+            console.log('open');
+            sp.write('pins\n');
+        });
 
-            sp.on('data', (data) => {
-                dataReceived.push(data);
-                dispatcher.emit('message', data);
-                console.log('Data received: ' + data);
-            });
-
-        } catch (er) {
-            console.log(er);
-        }
-
+        sp.on('data', (data) => {
+            dataReceived.push(data);
+            dispatcher.emit('message', data);
+            console.log('Data received: ' + data);
+        });
     }
 }
 
