@@ -25,8 +25,8 @@ function poll(){
             .then((res) => {
                 return res.json();
             }).then((data) => {
-                let jsonData = JSON.parse(data);
-                console.log('Data',data,'Json', jsonData);
+                //let jsonData = JSON.parse(data);
+                console.log('Data',data);
 
             if( data) {
                 let keys = Object.keys(data);

@@ -75,7 +75,8 @@ app.get('/', (req, res) => {
 app.get('/subscribe', (req, res) => {
     dispatcher.once('message', message => {
         res.set('Content-Type', 'application/json');
-        res.json(message);
+        console.log('Emmit: ' + message);
+        res.json({data:message});
     });
 });
 
