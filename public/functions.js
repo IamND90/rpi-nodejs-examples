@@ -25,16 +25,18 @@ function poll(){
     setTimeout( () => {
         window.fetch(document.baseURI + 'subscribe')
             .then((res) => {
-                return res.json();
+                return res.body;
             }).then((data) => {
-                let s = data;
-                console.log('DataJ:',s);
+
+                console.log('DataJ:',data);
             try {
-                let json =  JSON.parse(cachedJson +s);
+                let json =  JSON.parse(cachedJson +data);
                 console.log('Json:',json);
 
                 updateDom(json);
+                cachedJson = '';
             }catch (e) {
+                console.log('JsonNotParsed:',data);
                 cachedJson += s;
             }
             poll();
