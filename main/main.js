@@ -33,9 +33,8 @@ function initSp() {
             console.log('Data received: ', s);
             try {   // Parse raw
                 let json =  JSON.parse(s);
-                console.log('Json:',s);
+                console.log('Json:',json);
 
-                updateDom(s);
                 cachedJson = '';
                 dataReceived.push(s);
                 dispatcher.emit('message', s);
@@ -46,9 +45,9 @@ function initSp() {
                     let json =  JSON.parse(cachedJson);
                     console.log('Json:',json);
 
+                    dataReceived.push(cachedJson);
+                    dispatcher.emit('message', cachedJson);
                     cachedJson = '';
-                    dataReceived.push(s);
-                    dispatcher.emit('message', s);
                 }catch (e) {
                     console.log('JsonNotParsed2:',data);
                 }
