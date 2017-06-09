@@ -25,7 +25,7 @@ function poll(){
     setTimeout( () => {
         window.fetch(document.baseURI + 'subscribe')
             .then((res) => {
-                return res.body;
+                return res.json();
             }).then((data) => {
 
                 console.log('DataJ:',data);
