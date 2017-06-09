@@ -28,7 +28,7 @@ function initSp() {
 
         sp.on('data', (data) => {
             dataReceived.push(data);
-            dispatcher.emit('message', data.toString());
+            dispatcher.emit('message', data);
             console.log('Data received: ' + data);
         });
     }
@@ -82,7 +82,7 @@ app.get('/subscribe', (req, res) => {
     res.set('Content-Type', 'application/json');
     dispatcher.once('message', message => {
         console.log('Emit:',message);
-        res.json(message);
+        res.json(message.toString());
     });
     initSp();
 });
