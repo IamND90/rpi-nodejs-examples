@@ -31,20 +31,31 @@ function poll(){
                 let json = JSON.parse(s);
                 console.log('Json:',json);
 
-                let keys = Object.keys(json);
-                for( let key in keys){
-                    conf[key] = data[key];
-                }
-
-
-                let elemDiv = document.createElement('p');
-                elemDiv.innerHTML = data.toString();
-                document.body.appendChild(elemDiv);
+                updateDom(json);
 
                 poll();
         });
 
     },200);
+}
+
+function updateDom(json) {
+    let keys = Object.keys(json);
+    for( let key in keys){
+        conf[key] = data[key];
+
+        let p = document.getElementById(key);
+        if( p && p!==null) {
+            p.innerHTML = conf[key];
+        }
+
+    }
+
+
+    let elemDiv = document.createElement('p');
+    elemDiv.innerHTML = data.toString();
+    document.body.appendChild(elemDiv);
+
 }
 
 poll();

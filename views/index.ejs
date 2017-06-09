@@ -8,6 +8,8 @@
 <body>
 
     <div class="container">
+        <div id="name">Unknown</div>
+
         <form action="http://127.0.0.1:8080/A4" method="post">
             <input type="range" id= "inputSlider" min="0" max="1023" value="512" step="1" oninput="showValue(this.value)" />
 
@@ -18,9 +20,7 @@
 
         </form>
 
-            <p>
-                INPUT_RESPONSE
-            </p>
+
         <br/>
         <div class="list-group">
             <!-- loop over blog posts and render them -->

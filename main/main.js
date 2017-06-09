@@ -28,7 +28,7 @@ function initSp() {
 
         sp.on('data', (data) => {
             dataReceived.push(data);
-            dispatcher.emit('message', data);
+            dispatcher.emit('message', data.toString());
             console.log('Data received: ' + data);
         });
     }
@@ -46,39 +46,44 @@ function sendSp(data, callback) {
 }
 
 app.get('/', (req, res) => {
-    initSp();
+
     console.log('Get /', req.query);
-    let keys = Object.keys(req.query);
-    if ( keys.length >0){
-        let toSend = '';
-        for ( let key of keys) {
-            if( toSend !== '') toSend += ' ';
-            toSend += key;
-            if( req.query[key] && req.query[key] !== ''){
-                toSend += '=' +  req.query[key];
+    if ( sp !== null) {
+        let keys = Object.keys(req.query);
+        if ( keys.length >0){
+            let toSend = '';
+            for ( let key of keys) {
+                if( toSend !== '') toSend += ' ';
+                toSend += key;
+                if( req.query[key] && req.query[key] !== ''){
+                    toSend += '=' +  req.query[key];
+                }
             }
+            sendSp(toSend, (data) => {
+                console.log('Data: ' + data);
+                res.send(data);
+            });
+        } else {
+            res.render('index', {
+                posts: dataReceived,
+            });
         }
-        sendSp(toSend, (data) => {
-            console.log('Data: ' + data);
-            res.send(data);
-        });
-    } else {
+    }
+    else {
         res.render('index', {
             posts: dataReceived,
         });
     }
 
 
-
 });
 
 app.get('/subscribe', (req, res) => {
+    res.set('Content-Type', 'application/json');
     dispatcher.once('message', message => {
-        res.set('Content-Type', 'application/json');
-        //console.log('Emmit: ', message.toString());
-        res.json(message.toString());
+        res.json(message);
     });
-
+    initSp();
 });
 
 app.listen(8080, () => {
