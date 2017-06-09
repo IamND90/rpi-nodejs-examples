@@ -38,7 +38,7 @@ function initSp() {
                 dataReceived.push(s);
                 dispatcher.emit('message', s);
             }catch (e) {
-                console.log('JsonNotParsed1:',s);
+                //console.log('JsonNotParsed1:',s);
                 cachedJson += s;
                 try {
                     let json =  JSON.parse(cachedJson);
@@ -48,7 +48,7 @@ function initSp() {
                     dispatcher.emit('message', cachedJson);
                     cachedJson = '';
                 }catch (e) {
-                    console.log('JsonNotParsed2:',s);
+                    //console.log('JsonNotParsed2:',s);
                 }
             }
 
@@ -105,6 +105,24 @@ app.get('/subscribe', (req, res) => {
         res.json(msg);
     });
     initSp();
+});
+
+app.get('/send', (req, res) => {
+    let keys = Object.keys(req.query);
+    if ( keys.length >0){
+        let toSend = '';
+        for ( let key of keys) {
+            if( toSend !== '') toSend += ' ';
+            toSend += key;
+            if( req.query[key] && req.query[key] !== ''){
+                toSend += '=' +  req.query[key];
+            }
+        }
+        sendSp(toSend);
+        res.end('Ok');
+    } else {
+        res.end('Err');
+    }
 });
 
 app.listen(8080, () => {
