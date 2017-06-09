@@ -2,12 +2,10 @@
 
 let express = require('express');  //web server
 let SerialPort = require("serialport");
-let path = require('path');
 
 let app = express();
-app.set('views', __dirname + '/public');
-app.engine('html', require('ejs').renderFile);
-
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
 
 let sp = null;
@@ -25,8 +23,8 @@ function initSp() {
         });
         sp.on('data', (data) => {
             dataReceived.push(data);
-            var node = document.createTextNode(data);         // Create a text node
-            document.getElementById('input').appendChild(node);
+            //var node = document.createTextNode(data);         // Create a text node
+            //window.document.getElementById('input').appendChild(node);
             console.log('data received: ' + data);
         });
     }
@@ -43,13 +41,6 @@ function sendSp(data) {
 }
 
 app.get('/', (req, res) => {
-
-    document.getElementById('send').addEventListener('click', () => {
-        console.log('Send click');
-        let text = document.getElementById('input').textContent;
-        sendSp(text);
-    });
-
     initSp();
     console.log('Get /', req.query);
     let keys = Object.keys(req.query);
@@ -66,21 +57,12 @@ app.get('/', (req, res) => {
     }
 
 
-    res.render('index.html');
+    res.render('index', {
+        posts: dataReceived,
+    });
 });
 
-app.use(express.static('public'));
-
-app.get('/test', (req, res) => {
-
-    //initSp();
-    console.log('Get /test');
-    res.send('Hello');
-});
 
 app.listen(8080, () => {
     console.log('Example app listening on port 8080!');
 });
-
-
-//export { sp }

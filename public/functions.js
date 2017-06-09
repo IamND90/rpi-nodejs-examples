@@ -7,9 +7,18 @@ function showValue(value) {
     let a = document.getElementById('send'); //or grab it by tagname etc
     a.href = '?'+buf;
     a.innerHTML = buf;
-    a.submit();
 }
 
 function getCurrentA0(){
     return currentValue;
+}
+
+() => {
+    document.getElementById('send').addEventListener('click', () => {
+        console.log('Send click');
+        let text = document.getElementById('input').textContent;
+        sendSp(text);
+    });
+
+
 }
