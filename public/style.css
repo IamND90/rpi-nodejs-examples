@@ -10,6 +10,16 @@ button {
     margin: 4px;
 }
 
+.row {
+    display: flex;
+    flex-direction: column;
+}
+.row.p {
+    width: 120px;
+    margin-left: 4px;
+    text-align: left;
+}
+
 input[type=range]{
     -webkit-appearance: none;
     width: 80%;

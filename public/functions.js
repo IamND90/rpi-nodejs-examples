@@ -87,6 +87,7 @@ function setPins(pins){
     for( let key of keys){
         let value = pins[key];
         let div = document.createElement('div');
+        div.setAttribute('class','row');
 
         let p = document.createElement('p');
         p.innerHTML = key;
