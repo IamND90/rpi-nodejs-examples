@@ -26,20 +26,23 @@ function poll(){
                 return res.json();
             }).then((data) => {
                 //let jsonData = JSON.parse(data);
-                console.log('Data',data);
 
-            if( data) {
-                let keys = Object.keys(data);
-                for( let key in keys){
-                    conf[key] = data[key];
+                let json = JSON.parse(data.toString());
+                console.log('Data',json);
+            /*
+                if( json) {
+                    let keys = Object.keys(json);
+                    for( let key in keys){
+                        conf[key] = data[key];
+                    }
                 }
-            }
+                */
 
-            let elemDiv = document.createElement('p');
-            elemDiv.innerHTML = data.toString();
-            document.body.appendChild(elemDiv);
+                let elemDiv = document.createElement('p');
+                elemDiv.innerHTML = data.toString();
+                document.body.appendChild(elemDiv);
 
-            poll();
+                poll();
         });
 
     },200);
